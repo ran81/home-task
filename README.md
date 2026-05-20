@@ -30,27 +30,6 @@ All filtering, string matching, and sorting calculations are isolated inside a c
 
 - **Production Readiness:** The UI components remain completely decoupled from data manipulation rules. If a real backend API or a caching library like **TanStack Query** is introduced down the road, it can be swapped into the custom hook natively without modifying a single line of component code.
 
----
-
-## 📁 Directory Structure
-
-```text
-src/
-├── components/          # Functional UI Layout blocks
-│   ├── InquiryDetails.tsx     # Absolute overlay context file drawer & timeline
-│   ├── InquiryFilters.tsx     # Combined search filters & sort deck
-│   └── InquiryListTable.tsx   # Enterprise tabular layout view
-├── hooks/               # Core data processing & URL interceptors
-│   └── useInquiries.ts        # Filtering, sorting, and state synchronization
-├── mock/                # Local data models
-│   └── data.ts                # Mock inquiry telemetry datasets
-├── types/               # Strict type files
-│   └── inquiry.ts             # Status, Category, and Profile interfaces
-├── App.tsx              # Core orchestration frame
-├── main.tsx             # Global app bootstrap & Router binding
-└── index.css            # Tailwind layer configurations
-```
-
 ## 🚀 Getting Started
 
 ```

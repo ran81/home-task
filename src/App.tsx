@@ -16,7 +16,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-100 text-slate-800 antialiased selection:bg-blue-500/10">
-      {/* Application Navigation Header */}
       <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm backdrop-blur-md bg-white/95">
         <div className="max-w-400 mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -44,12 +43,9 @@ function App() {
         </div>
       </header>
 
-      {/* Main Container Stage */}
       <main className="max-w-400 mx-auto px-4 sm:px-6 py-6">
-        {/* Global Filters Deck */}
         <InquiryFilters filters={filters} updateFilters={updateFilters} />
 
-        {/* Full-width Table Stage */}
         <div className="w-full">
           <InquiryListTable
             inquiries={inquiries}
@@ -58,7 +54,6 @@ function App() {
           />
         </div>
 
-        {/* Absolute Portal-Style Slide-Over Drawer */}
         <InquiryDetails
           inquiry={selectedInquiry}
           onClose={handleCloseDetails}
