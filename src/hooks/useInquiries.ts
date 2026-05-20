@@ -5,7 +5,6 @@ import type { Inquiry } from "../types/inquiry";
 export function useInquiries() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // 1. Extract and normalize values from URL search params
   const search = searchParams.get("search") || "";
   const statusFilter = searchParams.get("status") || "All";
   const categoryFilter = searchParams.get("category") || "All";
@@ -13,7 +12,7 @@ export function useInquiries() {
   const sortOrder = searchParams.get("sortOrder") || "desc";
   const selectedId = searchParams.get("selectedId") || null;
 
-  // 2. Filter, search, and sort the data locally
+  // Filter, search, and sort the data locally
   const filteredAndSortedInquiries = MOCK_INQUIRIES.filter((inquiry) => {
     // Search match (Name or Inquiry Number)
     const matchesSearch =
@@ -45,11 +44,9 @@ export function useInquiries() {
     return 0;
   });
 
-  // Find the single active inquiry if one is selected in the UI panel
   const selectedInquiry =
     MOCK_INQUIRIES.find((i) => i.id === selectedId) || null;
 
-  // 3. Centralized state modifiers to update the URL cleanly
   const updateFilters = (updates: Record<string, string | null>) => {
     const newParams = new URLSearchParams(searchParams);
 

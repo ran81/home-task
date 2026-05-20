@@ -43,7 +43,6 @@ export function InquiryFilters({
     });
   };
 
-  // Determine if any filters are currently active beyond defaults
   const isFiltered =
     filters.search !== "" ||
     filters.status !== "All" ||
@@ -89,7 +88,6 @@ export function InquiryFilters({
         />
 
         {/* Unified Sorting Menu */}
-
         <Select
           label="Sort By"
           value={`${filters.sortBy}:${filters.sortOrder}`}

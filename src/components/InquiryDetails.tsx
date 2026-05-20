@@ -40,7 +40,6 @@ export function InquiryDetails({ inquiry, onClose }: InquiryDetailsProps) {
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        {/* Render content safely only if data is loaded, preventing crashes while off-screen */}
         {inquiry && (
           <>
             <div className="p-5 border-b border-slate-100 bg-slate-50/80 flex items-center justify-between">
