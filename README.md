@@ -1,73 +1,59 @@
-# React + TypeScript + Vite
+# Customer Inquiry Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An enterprise-grade, single-screen dashboard developed for service representatives to manage customer inquiries efficiently. Built using a modern, scalable architecture optimized for rapid data processing and high usability.
 
-Currently, two official plugins are available:
+## 🛠️ Tech Stack & Architecture
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Framework:** React 19 (TypeScript) with Vite
+- **Styling:** Tailwind CSS (Utility-first, responsive grid architecture)
+- **Routing & State Synchronization:** React Router DOM (v6+)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🏗️ Architectural Decisions & Engineering Highlights
 
-## Expanding the ESLint configuration
+### 1. State Management: The "Zero-Redux" URL-First Strategy
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Instead of over-engineering the application with heavy global state libraries (like Redux or Zustand), this system utilizes **the URL as the single source of truth** for operational parameters.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **URL Synchronization:** Active search strings, status filters, category scopes, sorting variables, and the open file identifier (`selectedId`) are managed via React Router's `useSearchParams`.
+- **Engineering Benefits:** This strategy eliminates data synchronization bugs, yields excellent rendering performance, and enables immediate deep-linking capabilities (e.g., a representative can copy and share a URL, and a colleague will see the exact same filtered table with the identical file drawer open).
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 2. High-Density Layout: Absolute Slide-Over Drawer
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **The Problem with Side-by-Side Splits:** Squeezing a high-density data table to 60% width when viewing file files introduces massive horizontal scrolling friction and text truncation.
+- **The Solution:** The main workspace presents a 100% full-width data stage. When an item is selected, a focused **Slide-Over Drawer** (`max-w-xl`) absolute-positions itself over the right margin. This maximizes data visibility while a subtle backdrop blur retains peripheral visual context for the representative.
+
+### 3. Clear Separation of Concerns (Custom Hooks)
+
+All filtering, string matching, and sorting calculations are isolated inside a clean custom data layer hook: `useInquiries.ts`.
+
+- **Production Readiness:** The UI components remain completely decoupled from data manipulation rules. If a real backend API or a caching library like **TanStack Query** is introduced down the road, it can be swapped into the custom hook natively without modifying a single line of component code.
+
+---
+
+## 📁 Directory Structure
+
+```text
+src/
+├── components/          # Functional UI Layout blocks
+│   ├── InquiryDetails.tsx     # Absolute overlay context file drawer & timeline
+│   ├── InquiryFilters.tsx     # Combined search filters & sort deck
+│   └── InquiryListTable.tsx   # Enterprise tabular layout view
+├── hooks/               # Core data processing & URL interceptors
+│   └── useInquiries.ts        # Filtering, sorting, and state synchronization
+├── mock/                # Local data models
+│   └── data.ts                # Mock inquiry telemetry datasets
+├── types/               # Strict type files
+│   └── inquiry.ts             # Status, Category, and Profile interfaces
+├── App.tsx              # Core orchestration frame
+├── main.tsx             # Global app bootstrap & Router binding
+└── index.css            # Tailwind layer configurations
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+npm install
+npm run dev
 ```

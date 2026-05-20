@@ -1,4 +1,5 @@
-// import type { InquiryStatus, InsuranceCategory } from '../types/inquiry';
+import { Input } from "./ui/Input";
+import { Select } from "./ui/Select";
 
 interface InquiryFiltersProps {
   filters: {
@@ -52,72 +53,56 @@ export function InquiryFilters({
     <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-4 mb-6">
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {/* Text Search Field */}
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-semibold text-slate-600">Search</label>
-          <div className="relative">
-            <input
-              type="text"
-              value={filters.search}
-              onChange={handleSearchChange}
-              placeholder="Name or inquiry ID..."
-              className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
-            />
-          </div>
-        </div>
+        <Input
+          label="Search"
+          value={filters.search}
+          onChange={handleSearchChange}
+          placeholder="Name or inquiry ID..."
+        />
 
         {/* Status Filter Dropdown */}
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-semibold text-slate-600">Status</label>
-          <select
-            value={filters.status}
-            onChange={handleStatusChange}
-            className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
-          >
-            <option value="All">All Statuses</option>
-            <option value="New">New</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Resolved">Resolved</option>
-            <option value="Closed">Closed</option>
-          </select>
-        </div>
+        <Select
+          label="Status"
+          value={filters.status}
+          onChange={handleStatusChange}
+          options={[
+            { value: "All", label: "All Statuses" },
+            { value: "New", label: "New" },
+            { value: "In Progress", label: "In Progress" },
+            { value: "Resolved", label: "Resolved" },
+            { value: "Closed", label: "Closed" },
+          ]}
+        />
 
         {/* Insurance Line Category Filter */}
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-semibold text-slate-600">
-            Insurance Category
-          </label>
-          <select
-            value={filters.category}
-            onChange={handleCategoryChange}
-            className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
-          >
-            <option value="All">All Lines</option>
-            <option value="Car">Car</option>
-            <option value="Health">Health</option>
-            <option value="Home">Home</option>
-            <option value="Life">Life</option>
-          </select>
-        </div>
+        <Select
+          label="Insurance Category"
+          value={filters.category}
+          onChange={handleCategoryChange}
+          options={[
+            { value: "All", label: "All Lines" },
+            { value: "Car", label: "Car" },
+            { value: "Health", label: "Health" },
+            { value: "Home", label: "Home" },
+            { value: "Life", label: "Life" },
+          ]}
+        />
 
         {/* Unified Sorting Menu */}
-        <div className="flex flex-col gap-1.5">
-          <label className="text-xs font-semibold text-slate-600">
-            Sort By
-          </label>
-          <select
-            value={`${filters.sortBy}:${filters.sortOrder}`}
-            onChange={handleSortChange}
-            className="w-full px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
-          >
-            <option value="createdAt:desc">Date: Newest First</option>
-            <option value="createdAt:asc">Date: Oldest First</option>
-            <option value="customerName:asc">Client Name (A-Z)</option>
-            <option value="id:asc">Inquiry Number</option>
-          </select>
-        </div>
+
+        <Select
+          label="Sort By"
+          value={`${filters.sortBy}:${filters.sortOrder}`}
+          onChange={handleSortChange}
+          options={[
+            { value: "createdAt:desc", label: "Newest First" },
+            { value: "createdAt:asc", label: "Oldest First" },
+            { value: "customerName:asc", label: "Client Name" },
+            { value: "id:asc", label: "Inquiry Number" },
+          ]}
+        />
       </div>
 
-      {/* Conditional Reset Button Row */}
       {isFiltered && (
         <div className="flex justify-end pt-1">
           <button

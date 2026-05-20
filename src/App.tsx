@@ -4,7 +4,6 @@ import { InquiryListTable } from "./components/InquiryListTable";
 import { InquiryDetails } from "./components/InquiryDetails";
 
 function App() {
-  // Pull all state mechanics and computational results directly from our hook
   const { inquiries, selectedInquiry, filters, updateFilters } = useInquiries();
 
   const handleSelectInquiry = (id: string) => {
@@ -17,12 +16,11 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-100 text-slate-800 antialiased selection:bg-blue-500/10">
-      {/* Shared Application Header */}
+      {/* Application Navigation Header */}
       <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm backdrop-blur-md bg-white/95">
-        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+        <div className="max-w-400 mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            {/* Simple professional abstract logo icon */}
-            <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-sm tracking-tighter shadow-md shadow-blue-500/20">
+            <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-blue-500/20">
               IL
             </div>
             <div>
@@ -35,7 +33,6 @@ function App() {
             </div>
           </div>
 
-          {/* Quick Counter Metrics Badge Bar */}
           <div className="flex items-center gap-2">
             <span className="text-xs font-semibold px-2.5 py-1 bg-slate-100 border border-slate-200 text-slate-600 rounded-lg">
               Total Found:{" "}
@@ -47,34 +44,25 @@ function App() {
         </div>
       </header>
 
-      {/* Main Operational Stage Area */}
-      <main className="max-w-[1600px] mx-auto px-4 sm:px-6 py-6">
-        {/* Global Search and Query Controls Area */}
+      {/* Main Container Stage */}
+      <main className="max-w-400 mx-auto px-4 sm:px-6 py-6">
+        {/* Global Filters Deck */}
         <InquiryFilters filters={filters} updateFilters={updateFilters} />
 
-        {/* Dynamic Dual-Column Split Workspaces Area */}
-        <div className="flex flex-col lg:flex-row gap-6 items-start">
-          {/* Left Column: List/Table Container */}
-          <div
-            className={`w-full transition-all duration-300 ${selectedInquiry ? "lg:w-3/5 xl:w-2/3" : "lg:w-full"}`}
-          >
-            <InquiryListTable
-              inquiries={inquiries}
-              selectedId={filters.selectedId}
-              onSelectInquiry={handleSelectInquiry}
-            />
-          </div>
-
-          {/* Right Column: Contextual Action File Details Overlay Panel */}
-          {selectedInquiry && (
-            <div className="w-full lg:w-2/5 xl:w-1/3 lg:sticky lg:top-[85px] h-[calc(100vh-120px)] animate-in fade-in slide-in-from-right-4 duration-200">
-              <InquiryDetails
-                inquiry={selectedInquiry}
-                onClose={handleCloseDetails}
-              />
-            </div>
-          )}
+        {/* Full-width Table Stage */}
+        <div className="w-full">
+          <InquiryListTable
+            inquiries={inquiries}
+            selectedId={filters.selectedId}
+            onSelectInquiry={handleSelectInquiry}
+          />
         </div>
+
+        {/* Absolute Portal-Style Slide-Over Drawer */}
+        <InquiryDetails
+          inquiry={selectedInquiry}
+          onClose={handleCloseDetails}
+        />
       </main>
     </div>
   );
