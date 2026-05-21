@@ -56,6 +56,7 @@ export function InquiryFilters({
           label="Search"
           value={filters.search}
           onChange={handleSearchChange}
+          onClear={() => updateFilters({ search: "" })}
           placeholder="Name or inquiry ID..."
         />
 

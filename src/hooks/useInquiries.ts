@@ -52,7 +52,7 @@ export function useInquiries() {
 
     Object.entries(updates).forEach(([key, value]) => {
       if (value === null || value === "All" || value === "") {
-        newParams.delete(key); // Keep the URL clean from defaults
+        newParams.delete(key);
       } else {
         newParams.set(key, value);
       }
