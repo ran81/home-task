@@ -10,33 +10,22 @@ interface InquiryDetailsProps {
 export function InquiryDetails({ inquiry, onClose }: InquiryDetailsProps) {
   const isOpen = inquiry !== null;
 
-  // Prevent background scrolling only when the drawer is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      document.body.style.overflow = "";
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        onClose();
+      }
     };
-  }, [isOpen]);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
 
   return (
     <div
-      className={`fixed inset-0 z-50 flex justify-end transition-all duration-300 ${
-        isOpen ? "pointer-events-auto" : "pointer-events-none"
-      }`}
+      className={`fixed right-0 top-0 bottom-0 z-40 flex justify-end transition-all duration-300 pointer-events-none`}
     >
-      {/* Semi-transparent Backdrop Overlay */}
       <div
-        className={`absolute inset-0 bg-slate-900/40 backdrop-blur-xs transition-opacity duration-300 ${
-          isOpen ? "opacity-100" : "opacity-0"
-        }`}
-        onClick={onClose}
-      />
-
-      {/* Slide-Over Drawer Panel */}
-      <div
-        className={`relative w-full max-w-lg md:max-w-xl h-full bg-white shadow-2xl flex flex-col z-10 border-l border-slate-200 transition-transform duration-300 ease-in-out transform ${
+        className={`w-[90vw] sm:w-[450px] md:w-[560px] h-full bg-white shadow-2xl flex flex-col border-l border-slate-200 transition-transform duration-300 ease-in-out transform pointer-events-auto ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
