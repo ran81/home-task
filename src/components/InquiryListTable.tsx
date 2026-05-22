@@ -37,7 +37,7 @@ export function InquiryListTable({
               <th className="py-3 px-4">Summary</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100 text-sm text-slate-700">
+          <tbody className="text-sm text-slate-700">
             {inquiries.map((inquiry) => {
               const isSelected = inquiry.id === selectedId;
               return (
@@ -51,34 +51,34 @@ export function InquiryListTable({
                   }`}
                 >
                   {/* Inquiry ID */}
-                  <td className="py-3.5 px-4 font-mono font-medium text-slate-900 group-hover:text-blue-600 transition-colors">
+                  <td className="py-3.5 px-4 border-b border-slate-100 font-mono font-medium text-slate-900 group-hover:text-blue-600 transition-colors">
                     #{inquiry.id}
                   </td>
 
                   {/* Customer Name */}
-                  <td className="py-3.5 px-4 font-medium text-slate-900">
+                  <td className="py-3.5 px-4 border-b border-slate-100 font-medium text-slate-900">
                     {inquiry.customerName}
                   </td>
 
                   {/* Insurance Category Line */}
-                  <td className="py-3.5 px-4">
+                  <td className="py-3.5 px-4 border-b border-slate-100">
                     <span className="text-xs bg-slate-100 text-slate-800 font-medium px-2 py-1 rounded">
                       {inquiry.category}
                     </span>
                   </td>
 
                   {/* Status Badge */}
-                  <td className="py-3.5 px-4">
+                  <td className="py-3.5 px-4 border-b border-slate-100">
                     <Badge status={inquiry.status} />
                   </td>
 
                   {/* Formatted Local Date */}
-                  <td className="py-3.5 px-4 text-xs text-slate-500 whitespace-nowrap">
+                  <td className="py-3.5 px-4 border-b border-slate-100 text-xs text-slate-500 whitespace-nowrap">
                     {formatDate(inquiry.createdAt)}
                   </td>
 
                   {/* Summary Text Clip */}
-                  <td className="py-3.5 px-4 max-w-xs text-slate-500 truncate">
+                  <td className="py-3.5 px-4 border-b border-slate-100 max-w-xs text-slate-500 truncate">
                     {inquiry.summary}
                   </td>
                 </tr>
