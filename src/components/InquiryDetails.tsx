@@ -49,7 +49,7 @@ export function InquiryDetails({ inquiry, onClose }: InquiryDetailsProps) {
               </button>
             </div>
 
-            <div className="p-6 flex-1 overflow-y-auto space-y-6 text-sm text-slate-700">
+            <div className="p-6 flex-1 overflow-y-auto overscroll-contain space-y-6 text-sm text-slate-700">
               {/* Customer Profile Details */}
               <div>
                 <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3">
