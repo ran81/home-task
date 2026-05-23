@@ -1,4 +1,4 @@
-import { formatDate } from "../utils.ts/date";
+import { formatDate } from "../utils/date";
 import { Badge } from "./ui/Badge";
 import type { Inquiry } from "../types/inquiry";
 

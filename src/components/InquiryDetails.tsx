@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { formatDate } from "../utils.ts/date";
+import { formatDate } from "../utils/date";
 import type { Inquiry } from "../types/inquiry";
 
 interface InquiryDetailsProps {
